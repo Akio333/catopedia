@@ -43,13 +43,6 @@ interface Breed {
   reference_image_id: string;
 }
 
-interface Image {
-  id: string;
-  url: string;
-  width: number;
-  height: number;
-}
-
 export interface CatData {
   breeds: Breed[];
   id: string;

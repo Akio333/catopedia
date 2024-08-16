@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { PostCard } from "~/types";
+import type { PostCard } from "~/types";
 
 export default function Card(card: PostCard) {
   return (

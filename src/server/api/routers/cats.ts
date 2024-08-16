@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { CatData, PostCard } from "~/types";
+import type { CatData, PostCard } from "~/types";
 
 const headers = {
   "Content-Type": "application/json",
-  "x-api-key": process.env.API_KEY || "",
+  "x-api-key": process.env.API_KEY ?? "",
 };
 
 const API = "https://api.thecatapi.com/v1",
@@ -15,9 +15,9 @@ const mapData = (data: CatData): PostCard => {
   const breed = data.breeds[0];
   return {
     id: data.id,
-    breed: breed?.name || "N/A",
-    origin: breed?.origin || "N/A",
-    temperment: breed?.temperament || "N/A",
+    breed: breed?.name ?? "N/A",
+    origin: breed?.origin ?? "N/A",
+    temperment: breed?.temperament ?? "N/A",
     image: data.url,
   };
 };
@@ -40,7 +40,7 @@ export const postCatsRouter = createTRPCRouter({
           },
         );
 
-        const data: CatData[] = await resp.json();
+        const data: CatData[] = (await resp.json()) as CatData[];
         if (!data) {
           return [];
         }
