@@ -10,7 +10,7 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <main className="min-h-screen bg-gradient-to-b from-violet-400 to-purple-600">
+      <main className="min-h-screen bg-gradient-to-b from-violet-400 to-purple-700 p-2">
         <div className="container mx-auto flex min-h-screen flex-col">
           Cat Pedia
         </div>
