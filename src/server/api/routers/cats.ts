@@ -11,6 +11,17 @@ const API = "https://api.thecatapi.com/v1",
   DEFAULT_PARAMS =
     "size=med&mime_types=jpg&format=json&has_breeds=true&order=RANDOM";
 
+const mapData = (data: CatData): PostCard => {
+  const breed = data.breeds[0];
+  return {
+    id: data.id,
+    breed: breed?.name || "N/A",
+    origin: breed?.origin || "N/A",
+    temperment: breed?.temperament || "N/A",
+    image: data.url,
+  };
+};
+
 export const postCatsRouter = createTRPCRouter({
   images: publicProcedure
     .input(
@@ -35,14 +46,7 @@ export const postCatsRouter = createTRPCRouter({
         }
         const cards: PostCard[] = [];
         data.forEach((item) => {
-          const breed = item.breeds[0];
-          cards.push({
-            id: item.id,
-            breed: breed?.name || "N/A",
-            origin: breed?.origin || "N/A",
-            temperment: breed?.temperament || "N/A",
-            image: item.url,
-          });
+          cards.push(mapData(item));
         });
         return cards;
       } catch (e) {
