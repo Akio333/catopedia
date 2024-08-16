@@ -5,6 +5,17 @@
 await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn2.thecatapi.com",
+        port: "",
+        pathname: "/images/**",
+      },
+    ],
+  },
+};
 
 export default config;

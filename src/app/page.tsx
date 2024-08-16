@@ -2,6 +2,7 @@ import { api, HydrateClient } from "~/trpc/server";
 import Card from "./_components/card";
 
 export default async function Home() {
+  "use client";
   const data = await api.cats.images({ page: 0, limit: 10 });
   return (
     <HydrateClient>
@@ -12,7 +13,7 @@ export default async function Home() {
               key={card.id}
               id={card.id}
               image={card.image}
-              name={card.name}
+              breed={card.breed}
               origin={card.origin}
               temperment={card.temperment}
             />

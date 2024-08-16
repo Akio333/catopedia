@@ -60,7 +60,7 @@ export interface CatData {
 
 export interface PostCard {
   id: string;
-  name: string;
+  breed: string;
   origin: string;
   temperment: string;
   image: string;
