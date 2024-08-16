@@ -2,7 +2,7 @@
 
 ## Todo
 
-- [ ] Create Header Footer
+- [x] Create Header Footer
 - [ ] Create Teaser Card
 - [ ] Create Grid Layout
 - [ ] Populate grid with api data
