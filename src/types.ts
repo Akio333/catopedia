@@ -58,3 +58,18 @@ export interface PostCard {
   temperment: string;
   image: string;
 }
+
+export interface CatDetails {
+  breed: string;
+  origin: string;
+  temperment: string;
+  image: string;
+  alt_names: string;
+  adaptability: number;
+  affection_level: number;
+  child_friendly: number;
+  dog_friendly: number;
+  life_span: string;
+  description: string;
+  shedding_level: number;
+}
