@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CatDetails } from "~/types";
+import type { CatDetails } from "~/types";
 
 export default function Details({ catDetails }: { catDetails: CatDetails }) {
   return (
