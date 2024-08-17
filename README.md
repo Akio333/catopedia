@@ -10,3 +10,8 @@
 - [ ] Create Image Section
 - [ ] Create Info section
 - [ ] Populate Data
+- [ ] Implement lazy loading
+- [ ] Implement caching
+- [ ] Add Upload section
+- [ ] Rete limit
+- [ ] Analytics
