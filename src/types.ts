@@ -73,3 +73,20 @@ export interface CatDetails {
   description: string;
   shedding_level: number;
 }
+
+export interface BreedOption {
+  id: string;
+  name: string;
+}
+
+export interface CatUpload {
+  id: string;
+  url: string;
+  sub_id: string;
+  width: number;
+  height: number;
+  original_filename: string;
+  breed_ids: string;
+  pending: number;
+  approved: number;
+}

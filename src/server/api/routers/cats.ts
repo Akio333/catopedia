@@ -1,9 +1,13 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import type { CatData, CatDetails, PostCard } from "~/types";
+import type { CatData, CatDetails, CatUpload, PostCard } from "~/types";
 
-const headers = {
+const getHeaders = {
   "Content-Type": "application/json",
+  "x-api-key": process.env.API_KEY ?? "",
+};
+
+const postHeaders = {
   "x-api-key": process.env.API_KEY ?? "",
 };
 
@@ -37,6 +41,22 @@ const defaultCatDetails: CatDetails = {
   shedding_level: 0,
 };
 
+function extractBase64Data(base64String: string): {
+  mimeType: string | undefined;
+  b64Data: string | undefined;
+} {
+  const base64Pattern = /^data:(image\/\w+);base64,(.+)$/;
+  const match = base64String.match(base64Pattern);
+
+  if (match) {
+    const mimeType = match[1];
+    const b64Data = match[2];
+    return { mimeType, b64Data };
+  }
+
+  throw new Error("Invalid base64 string format");
+}
+
 export const postCatsRouter = createTRPCRouter({
   images: publicProcedure
     .input(
@@ -51,7 +71,7 @@ export const postCatsRouter = createTRPCRouter({
           `${API}/images/search?${DEFAULT_PARAMS}&page=${input.page}&limit=${input.limit}`,
           {
             method: "GET",
-            headers: headers,
+            headers: getHeaders,
           },
         );
 
@@ -75,7 +95,7 @@ export const postCatsRouter = createTRPCRouter({
       try {
         const resp = await fetch(`${API}/images/${input.id}`, {
           method: "GET",
-          headers: headers,
+          headers: getHeaders,
         });
 
         const data: CatData = (await resp.json()) as CatData;
@@ -102,6 +122,49 @@ export const postCatsRouter = createTRPCRouter({
         return catDetails;
       } catch (e) {
         return defaultCatDetails;
+      }
+    }),
+
+  uploadCat: publicProcedure
+    .input(
+      z.object({
+        image: z.string(),
+        breedId: z.string(),
+        fileName: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      try {
+        const { mimeType, b64Data } = extractBase64Data(input.image);
+        if (!mimeType || !b64Data) {
+          throw new Error("Invalid base64 string format");
+        }
+        const buffer = Buffer.from(b64Data, "base64");
+        const file = new File([buffer], input.fileName, {
+          type: mimeType,
+        });
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("breed_id", input.breedId);
+        formData.append("sub_id", "akio333");
+
+        const resp = await fetch(`${API}/images/upload`, {
+          method: "POST",
+          headers: postHeaders,
+          body: formData,
+        });
+
+        if (!resp.ok) {
+          const errorText = await resp.text();
+          console.error("Response error text:", errorText);
+          throw new Error(`Failed to upload image: ${resp.statusText}`);
+        }
+
+        const data: CatUpload = (await resp.json()) as CatUpload;
+        return data;
+      } catch (e) {
+        throw e;
       }
     }),
 });

@@ -12,7 +12,7 @@
 - [x] Populate Data
 - [x] Implement lazy loading
 - [x] Implement memoization
-- [ ] Add Upload section
+- [x] Add Upload section
 - [ ] Add profile and login (clerk)
 - [ ] Add uploaded images section
 - [ ] Add delete & edit

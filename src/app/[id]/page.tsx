@@ -2,7 +2,7 @@ import { HydrateClient } from "~/trpc/server";
 import Details from "../_components/details";
 import { api } from "~/trpc/server";
 
-export default async function Home({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: { id: string } }) {
   const catDetails = await api.cats.findCat({ id: params.id });
   return (
     <HydrateClient>
