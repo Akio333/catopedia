@@ -6,12 +6,19 @@
 - [x] Create Teaser Card
 - [x] Create Grid Layout
 - [x] Populate grid with api data
-- [ ] Create Details Layout
-- [ ] Create Image Section
-- [ ] Create Info section
-- [ ] Populate Data
-- [ ] Implement lazy loading
-- [ ] Implement caching
+- [x] Create Details Layout
+- [x] Create Image Section
+- [x] Create Info section
+- [x] Populate Data
+- [x] Implement lazy loading
+- [x] Implement memoization
 - [ ] Add Upload section
+- [ ] Add profile and login (clerk)
+- [ ] Add uploaded images section
+- [ ] Add delete & edit
 - [ ] Rete limit
-- [ ] Analytics
+- [ ] Add Search
+- [ ] Add Filter
+- [ ] Add Sort
+- [ ] Analytics (posthog)
+- [ ] error reporting (sentry)
