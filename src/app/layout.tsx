@@ -6,6 +6,8 @@ import { type Metadata } from "next";
 import { TRPCReactProvider } from "~/trpc/react";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
+import { ClerkProvider, SignedIn, SignedOut, SignIn } from "@clerk/nextjs";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Catopedia",
@@ -17,12 +19,19 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>
-        <Header />
-        <TRPCReactProvider>{children}</TRPCReactProvider>
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={`${GeistSans.variable}`}>
+        <body>
+          <Header />
+          <TRPCReactProvider>
+            <SignedIn>{children}</SignedIn>
+            <SignedOut>
+              <SignIn />
+            </SignedOut>
+          </TRPCReactProvider>
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
